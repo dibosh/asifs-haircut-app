@@ -85,7 +85,7 @@
         <div class="image-wrapper u-pull-left">
           <img ng-if="user.user_photo" ng-src="{{user.user_photo}}" alt="" class="avatar"/>
         </div>
-        <div class="name-wrapper u-pull-left">
+        <div class="name-wrapper u-pull-left" ng-click="filterByLead(user)">
           <span class="count"><strong>Activity Count:</strong> {{user.count}}</span>
 
           <div>
