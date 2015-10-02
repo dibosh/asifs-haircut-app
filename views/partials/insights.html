@@ -4,8 +4,8 @@
     <div class="twelve columns content">
       <div ng-repeat="(facetName, facets) in insights.facets">
         <h5 class="nc-grey">{{facetName}}</h5>
-        <div class="row" ng-repeat="(facet, count) in facets">
-          <p class="facet-item" ng-click="fetchInsights(facetName, facet)"> {{facet}}({{count}})</p>
+        <div class="row" ng-repeat="facetItem in facets">
+          <p class="facet-item" ng-click="fetchInsights(facetName, facetItem.facet)"> {{facetItem.facet}} ({{facetItem.count}})</p>
         </div>
       </div>
     </div>

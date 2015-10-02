@@ -68,7 +68,11 @@ angular.module('Controllers')
       BasicAPIServiceV1.popularPages(facetName, facets)
         .then(function (result) {
           $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
-          $scope.insights.facets = result.data.facets;
+          $scope.insights.facets = {
+            'Industry': _((_.sortBy(_.map(result.data.facets.Industry, function (count, name) { return {facet: name, count: count }; }), 'count'))).reverse().value(),
+            'Function': _((_.sortBy(_.map(result.data.facets['Function'], function (count, name) { return {facet: name, count: count }; }), 'count'))).reverse().value(),
+            'Seniority': _((_.sortBy(_.map(result.data.facets.Seniority, function (count, name) { return {facet: name, count: count }; }), 'count'))).reverse().value()
+          };
         })
         .finally(function () {
           $scope.data.sidePaneLoading = false;
