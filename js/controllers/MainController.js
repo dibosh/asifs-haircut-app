@@ -45,9 +45,7 @@ angular.module('Controllers')
       $scope.data.subLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByLeadId(user.lead_id)
         .then(function (result) {
-          $scope.filteredActivities.list = _.uniq(result.data.activities, function (activity) {
-            return activity.user.name + activity.page.url;
-          });
+          $scope.filteredActivities.list = _filterActivities(result.data.activities);
         })
         .finally(function () {
           $scope.data.subLoading = false;
@@ -60,30 +58,35 @@ angular.module('Controllers')
       $scope.data.subLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByUrl(page.url)
         .then(function (result) {
-          $scope.filteredActivities.list = _.uniq(result.data.activities, 'user.name');
+          $scope.filteredActivities.list = _filterActivities(result.data.activities);
         })
         .finally(function () {
           $scope.data.subLoading = false;
         });
     };
 
-    BasicAPIServiceV1.recentActivities()
+    $scope.closeSidePane = function () {
+      $scope.filteredActivities = {};
+    };
+
+    function _filterActivities(activities) {
+      return _.uniq(activities, function (activity) {
+          return activity.user.name + activity.page.url;
+      });
+    }
+
+    function _loadRecentActivities() {
+      BasicAPIServiceV1.recentActivities()
       .then(function (result) {
-        $scope.recentActivities = _.uniq(result.data.activities, 'user.name');
+        $scope.recentActivities = _filterActivities(result.data.activities);
       })
       .finally(function () {
         $scope.data.mainLoading = false;
       });
+    }
 
-    $interval(function () {
-      BasicAPIServiceV1.recentActivities()
-        .then(function (result) {
-          $scope.recentActivities = _.uniq(result.data.activities, 'user.name');
-        });
-    }, 10000);
+    _loadRecentActivities();
+    $interval(_loadRecentActivities, 10000);
 
-    $scope.closeSidePane = function () {
-      $scope.filteredActivities = {};
-    };
 
   });
