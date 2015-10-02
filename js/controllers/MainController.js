@@ -96,6 +96,7 @@ angular.module('Controllers')
 
     $scope.removeFacet = function (facetName) {
       delete $scope.currentFacets[facetName];
+      $scope.currentFacetsLength = Object.keys($scope.currentFacets).length;
       $scope.fetchInsights();
     };
 

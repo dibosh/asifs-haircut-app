@@ -26,6 +26,7 @@
         <div class="row popular-page-item">
           <h5 class="nc-grey">Content Overview</h5>
           <ul class="tags" ng-if="currentFacetsLength > 0">
+            <li><span>Filtering based on</span></li>
             <li class="tag" ng-repeat="(facetType, value) in currentFacets">
               <p class="category">{{facetType}}</p>
               <p class="sub-category">{{value}}</p>
