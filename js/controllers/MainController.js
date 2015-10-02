@@ -73,10 +73,15 @@ angular.module('Controllers')
         $scope.data.mainLoading = false;
       });
 
+    $interval(function () {
+      BasicAPIServiceV1.recentActivities()
+        .then(function (result) {
+          $scope.recentActivities = _.uniq(result.data.activities, 'user.name');
+        });
+    }, 10000);
 
     $scope.closeSidePane = function () {
       $scope.filteredActivities = {};
-    }
-
+    };
 
   });
