@@ -197,9 +197,27 @@ body {
 
 .article .count {
     display: inline-block;
-    background: #BE90D4;
-    padding: 2px 5px;
+    background: #BE90D4 !important;
     font-weight: 700;
     font-size: 18px;
-    color: white
+    color: white;
+    padding: 2px !important;
+}
+
+.facets-pane {
+    position: absolute;
+    left: -202px;
+    top: 132px;
+    width: 200px;
+    height: 80vh;
+}
+
+.facets-pane .facet-item {
+    font-size: 12px;
+    padding: 5px 2px;
+    margin: 2px;
+}
+
+.facets-pane .facet-item:hover {
+    background: rgba(0,0,0,0.5);
 }

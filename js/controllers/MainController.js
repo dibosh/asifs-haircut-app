@@ -2,11 +2,16 @@ angular.module('Controllers')
   .controller('MainCtrl', function ($scope, BasicAPIServiceV1, $interval) {
     $scope.data = {
       mainLoading: true,
-      subLoading: false
+      mainPanelLoading: false,
+      sidePaneLoading: false
     };
     $scope.selectedTabIndex = 0;
     $scope.popularPages = {};
     $scope.filteredActivities = {};
+
+    $scope.closeSidePane = function () {
+      $scope.filteredActivities = {};
+    };
 
     $scope.tabs = [
       {
@@ -31,43 +36,42 @@ angular.module('Controllers')
     $scope.filterByLead = function (user) {
       $scope.filteredActivities.filterHeader = '<strong>' + user.name + '</strong> read following articles';
       $scope.filteredActivities.filteredByLead = true;
-      $scope.data.subLoading = true;
+      $scope.data.sidePaneLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByLeadId(user.lead_id)
         .then(function (result) {
           $scope.filteredActivities.list = _filterActivities(result.data.activities);
         })
         .finally(function () {
-          $scope.data.subLoading = false;
+          $scope.data.sidePaneLoading = false;
         });
     };
 
     $scope.filterByUrl = function (page) {
       $scope.filteredActivities.filterHeader = '<strong>' + page.title + '</strong> was read by following leads';
       $scope.filteredActivities.filteredByLead = false;
-      $scope.data.subLoading = true;
+      $scope.data.sidePaneLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByUrl(page.url)
         .then(function (result) {
           $scope.filteredActivities.list = _filterActivities(result.data.activities);
         })
         .finally(function () {
-          $scope.data.subLoading = false;
+          $scope.data.sidePaneLoading = false;
         });
     };
 
-    $scope.closeSidePane = function () {
-      $scope.filteredActivities = {};
-    };
+
 
     $scope.insights = {};
     $scope.fetchInsights = function (facetName, facets) {
-      $scope.data.subLoading = true;
+      $scope.data.sidePaneLoading = true;
+      $scope.closeSidePane();
       BasicAPIServiceV1.popularPages(facetName, facets)
         .then(function (result) {
           $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
           $scope.insights.facets = result.data.facets;
         })
         .finally(function () {
-          $scope.data.subLoading = false;
+          $scope.data.sidePaneLoading = false;
         });
     };
 
@@ -85,17 +89,6 @@ angular.module('Controllers')
       .finally(function () {
         $scope.data.mainLoading = false;
       });
-    }
-
-    function _loadInsights() {
-      BasicAPIServiceV1.popularPages()
-        .then(function (result) {
-          $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
-          $scope.insights.facets = result.data.facets;
-        })
-        .finally(function () {
-          $scope.data.subLoading = false;
-        });
     }
 
     _loadRecentActivities();

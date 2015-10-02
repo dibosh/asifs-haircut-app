@@ -1,7 +1,20 @@
+<div class="facets-pane translucent-background">
+  <p ng-if="data.sidePaneLoading">Loading facets...</p>
+  <div class="row custom-row shadow translucent-background side-pane">
+    <div class="twelve columns content">
+      <div ng-repeat="(facetName, facets) in insights.facets">
+        <h5 class="nc-grey">{{facetName}}</h5>
+        <div class="row" ng-repeat="(facet, count) in facets">
+          <p class="facet-item" ng-click="fetchInsights(facetName, facet)"> {{facet}}({{count}})</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row full-height">
   <div class="seven columns card-list">
-    <p ng-if="data.subLoading">Loading...</p>
-    <h4 ng-if="!data.subLoading && popularPages.pages.length === 0">
+    <p ng-if="data.mainPanelLoading">Loading...</p>
+    <h4 ng-if="!data.mainPanelLoading && popularPages.pages.length === 0">
       Something went wrong, and we failed to create what you were looking for!
     </h4>
     <div class="row custom-row shadow translucent-background" ng-if="popularPages.pages.length > 0">
@@ -18,14 +31,32 @@
       </div>
     </div>
   </div>
-  <div class="five columns" ng-if="!data.subLoading">
-    <div class="row custom-row shadow translucent-background side-pane">
+
+  <div class="five columns">
+    <p ng-if="data.sidePaneLoading">Loading...</p>
+    <div class="row custom-row shadow translucent-background side-pane" ng-if="filteredActivities.list.length > 0">
       <div class="twelve columns content">
-        <div ng-repeat="(facetName, facets) in insights.facets">
-          <h4>{{facetName}}</h4>
-          <div class="row" ng-repeat="(facet, count) in facets">
-            <p ng-click="fetchInsights(facetName, facet)"> {{facet}} - {{count}} </p>
+        <span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span>
+        <h6 ng-bind-html="filteredActivities.filterHeader | trustText"></h6>
+        <div class="row" ng-repeat="filteredActivity in filteredActivities.list">
+          <div class="name-wrapper" ng-if="filteredActivities.filteredByLead">
+            <p class="article">
+              <img ng-if="filteredActivity.page.image" ng-src="{{filteredActivity.page.image}}" alt="" class="article-image" />
+              <span>{{filteredActivity.page.title || 'Title not available'}}</span>
+            </p>
           </div>
+          <div ng-if="!filteredActivities.filteredByLead">
+            <div class="image-wrapper u-pull-left">
+              <img ng-if="filteredActivity.user.user_photo" ng-src="{{filteredActivity.user.user_photo}}" alt="" class="avatar"/>
+            </div>
+            <div class="name-wrapper u-pull-left">
+              <div>
+                <h5 class="name nc-red">{{filteredActivity.user.name}}</h5>
+              </div>
+              <p class="designation nc-dark-grey"><span ng-if="filteredActivity.user.title">{{filteredActivity.user.title}},</span> {{filteredActivity.user.company}}</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
