@@ -1,5 +1,5 @@
 angular.module('Controllers')
-  .controller('MainCtrl', function ($scope, BasicAPIServiceV1, $inteval) {
+  .controller('MainCtrl', function ($scope, BasicAPIServiceV1, $interval) {
     $scope.data = {
       mainLoading: true,
       subLoading: false
