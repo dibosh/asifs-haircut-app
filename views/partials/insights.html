@@ -19,6 +19,7 @@
 
     <div class="row custom-row pos-relative shadow translucent-background" ng-if="popularPages.pages.length > 0">
       <div class="twelve columns">
+        <h5 class="nc-grey">Content Overview</h5>
         <div class="row popular-page-item">
           <ul class="breadcrumb-menu">
             <li class="menu-item" ng-click="selectBreadCrumb(menu)" ng-repeat="menu in breadCrumbMenus">
@@ -77,16 +78,22 @@
     </div>
   </div>
 
-  <div class="row custom-row shadow translucent-background side-pane" ng-if="insights.users.length > 0">
+  <div class="row custom-row shadow translucent-background side-pane card-list" ng-if="insights.users.length > 0">
+    <h5 class="nc-grey">Leads Overview</h5>
     <div class="twelve columns content">
-      <div class="row" ng-repeat="user in insights.users">
-        <div class="name-wrapper" ng-if="user.name !== 'N/A'">
-          <div> {{user.name}} </div>
-          <div> interacted {{user.count}} times </div>
-          <div ng-if="user.industry !== 'other' && user.industry !== 'N/A' && user.industry"> works in {{user.industry}} </div>
-          <div ng-if="user.function !== 'other' && user.function !== 'N/A' && user.function"> works as a {{user.function}} </div>
-          <div ng-if="user.seniority !== 'other' && user.seniority !== 'N/A' && user.seniority"> works is a {{user.seniority}} </div>
+      <div class="row popular-page-item" ng-repeat="user in insights.users">
+        <div class="image-wrapper u-pull-left">
+          <img ng-if="user.user_photo" ng-src="{{user.user_photo}}" alt="" class="avatar"/>
         </div>
+        <div class="name-wrapper u-pull-left">
+          <span class="count"><strong>Activity Count:</strong> {{user.count}}</span>
+
+          <div>
+            <h5 class="name nc-red">{{user.name}}</h5>
+          </div>
+          <p class="designation nc-dark-grey"><span ng-if="user.title">{{user.title}},</span> {{user.company}}</p>
+        </div>
+
       </div>
     </div>
   </div>

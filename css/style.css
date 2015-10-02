@@ -95,6 +95,7 @@ body {
 .card-list {
     height: 80vh;
     overflow-y: auto;
+    margin-right: 10px;
 }
 
 .side-pane {
