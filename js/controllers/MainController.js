@@ -1,7 +1,9 @@
 angular.module('Controllers')
   .controller('MainCtrl', function ($scope, BasicAPIServiceV1) {
-    $scope.data = {};
-    $scope.data.loading = true;
+    $scope.data = {
+      mainLoading: true,
+      subLoading: false
+    };
     $scope.selectedTabIndex = 0;
     $scope.tabs = [
       {
@@ -22,13 +24,46 @@ angular.module('Controllers')
       $scope.tabs[$scope.selectedTabIndex].isActive = true;
     };
 
+    $scope.filteredActivities = {};
+
+    $scope.filterByLead = function (leadId) {
+      $scope.filteredActivities.filterHeader = 'This lead has read';
+      $scope.filteredActivities.filteredByLead = true;
+      $scope.data.subLoading = true;
+      BasicAPIServiceV1.recentActivitiesFilterByLeadId(leadId)
+        .then(function (result) {
+          $scope.filteredActivities.list = result.data.activities;
+        })
+        .finally(function () {
+          $scope.data.subLoading = false;
+        });
+    };
+
+    $scope.filterByUrl = function (url) {
+      $scope.filteredActivities.filterHeader = 'This article was read by';
+      $scope.filteredActivities.filteredByLead = false;
+      $scope.data.subLoading = true;
+      BasicAPIServiceV1.recentActivitiesFilterByUrl(url)
+        .then(function (result) {
+          $scope.filteredActivities.list = result.data.activities;
+        })
+        .finally(function () {
+          $scope.data.subLoading = false;
+        });
+    };
+
     BasicAPIServiceV1.recentActivities()
       .then(function (result) {
         $scope.recentActivities = result.data.activities;
-        console.log($scope.recentActivities);
       })
       .finally(function () {
-        $scope.data.loading = false;
+        $scope.data.mainLoading = false;
       });
-    ;
+
+
+    $scope.closeSidePane = function () {
+      $scope.filteredActivities = {};
+    }
+
+
   });

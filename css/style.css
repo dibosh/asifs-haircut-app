@@ -162,3 +162,12 @@ body {
 .half-height {
     height: 45%;
 }
+
+.actions {
+    text-align: right;
+}
+
+.action-button {
+    font-size: 2.0rem;
+    cursor: pointer;
+}

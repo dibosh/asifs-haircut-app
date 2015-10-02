@@ -1,5 +1,5 @@
 <div class="wrapper backgroundNC">
-  <p class="loading" ng-if="data.loading">Loading...</p>
+  <p class="loading" ng-if="data.mainLoading">Loading...</p>
   <div class="container full-height">
     <div class="tabs">
       <h2 ng-class="{'active': tab.isActive}" ng-click="selectTab($index)" ng-repeat="tab in tabs">{{tab.title}}</h2>
