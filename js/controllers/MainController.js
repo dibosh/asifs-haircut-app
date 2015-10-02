@@ -5,6 +5,20 @@ angular.module('Controllers')
       subLoading: false
     };
     $scope.selectedTabIndex = 0;
+    $scope.popularPages = {};
+    $scope.filteredActivities = {};
+
+    function _loadInsightsTab() {
+      $scope.data.subLoading = true;
+      BasicAPIServiceV1.popularPages()
+        .then(function (result) {
+          $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
+        })
+        .finally(function () {
+          $scope.data.subLoading = false;
+        });
+    };
+
     $scope.tabs = [
       {
         title: 'Recent Activities',
@@ -22,9 +36,8 @@ angular.module('Controllers')
       $scope.tabs[$scope.selectedTabIndex].isActive = false;
       $scope.selectedTabIndex = index;
       $scope.tabs[$scope.selectedTabIndex].isActive = true;
+      if ($scope.selectedTabIndex === 1) _loadInsightsTab();
     };
-
-    $scope.filteredActivities = {};
 
     $scope.filterByLead = function (user) {
       $scope.filteredActivities.filterHeader = '<strong>' + user.name + '</strong> read following articles';

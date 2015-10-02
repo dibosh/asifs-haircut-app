@@ -11,7 +11,7 @@
             <div ng-click="filterByLead(activity.user)">
               <h5 class="name nc-red">{{activity.user.name}} <i class="fa fa-arrow-circle-right"></i></h5>
             </div>
-            <p class="designation"><span ng-if="activity.user.title">{{activity.user.title}},</span> {{activity.user.company}}</p>
+            <p class="designation nc-dark-grey"><span ng-if="activity.user.title">{{activity.user.title}},</span> {{activity.user.company}}</p>
             <p class="article" ng-click="filterByUrl(activity.page)">
               <img ng-if="activity.page.image" ng-src="{{activity.page.image}}" alt="" class="article-image" />
               <span>{{activity.page.title || 'Title not available'}} <i class="fa fa-arrow-circle-right"></i></span>
@@ -42,7 +42,7 @@
               <div>
                 <h5 class="name nc-red">{{filteredActivity.user.name}}</h5>
               </div>
-              <p class="designation"><span ng-if="filteredActivity.user.title">{{filteredActivity.user.title}},</span> {{filteredActivity.user.company}}</p>
+              <p class="designation nc-dark-grey"><span ng-if="filteredActivity.user.title">{{filteredActivity.user.title}},</span> {{filteredActivity.user.company}}</p>
             </div>
           </div>
 

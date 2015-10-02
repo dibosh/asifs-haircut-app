@@ -1,0 +1,29 @@
+<div class="row full-height">
+  <div class="seven columns card-list">
+    <p ng-if="data.subLoading">Loading...</p>
+    <h4 ng-if="!data.subLoading && popularPages.pages.length === 0">
+      Something went wrong, and we failed to create what you were looking for!
+    </h4>
+    <div class="row custom-row shadow translucent-background" ng-if="popularPages.pages.length > 0">
+      <div class="twelve columns">
+        <div class="row" ng-repeat="page in popularPages.pages">
+          <div class="name-wrapper">
+            <p>
+              <img ng-if="page.image" ng-src="{{page.image}}" alt="" class="article-image" />
+              <span>{{page.title || 'Title not available'}}</span>
+              <span class="count">{{page.count}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="five columns">-->
+    <!--<p ng-if="data.subLoading">Loading...</p>-->
+    <!--<div class="row custom-row shadow translucent-background">-->
+      <!--<div class="twelve columns">-->
+
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>

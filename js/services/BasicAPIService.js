@@ -11,6 +11,10 @@ angular.module('Services')
 
       recentActivitiesFilterByUrl: function (url) {
         return $http.get('https://fast-brushlands-4500.herokuapp.com/recent-activities?page_url=' + url);
+      },
+
+      popularPages: function () {
+        return $http.get('https://fast-brushlands-4500.herokuapp.com/popular-pages');
       }
     }
   }]);
