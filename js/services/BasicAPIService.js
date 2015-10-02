@@ -13,8 +13,12 @@ angular.module('Services')
         return $http.get('https://fast-brushlands-4500.herokuapp.com/recent-activities?page_url=' + url);
       },
 
-      popularPages: function () {
-        return $http.get('https://fast-brushlands-4500.herokuapp.com/popular-pages');
+      popularPages: function (facetType, facet) {
+        var url = 'https://fast-brushlands-4500.herokuapp.com/popular-pages';
+        if (facetType && facet) {
+          url = url + '?' + facetType.toLowerCase() + '=' + facet;
+        }
+        return $http.get(url);
       }
-    }
+    };
   }]);

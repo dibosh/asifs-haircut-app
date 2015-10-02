@@ -8,17 +8,6 @@ angular.module('Controllers')
     $scope.popularPages = {};
     $scope.filteredActivities = {};
 
-    function _loadInsightsTab() {
-      $scope.data.subLoading = true;
-      BasicAPIServiceV1.popularPages()
-        .then(function (result) {
-          $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
-        })
-        .finally(function () {
-          $scope.data.subLoading = false;
-        });
-    };
-
     $scope.tabs = [
       {
         title: 'Recent Activities',
@@ -36,7 +25,7 @@ angular.module('Controllers')
       $scope.tabs[$scope.selectedTabIndex].isActive = false;
       $scope.selectedTabIndex = index;
       $scope.tabs[$scope.selectedTabIndex].isActive = true;
-      if ($scope.selectedTabIndex === 1) _loadInsightsTab();
+      if ($scope.selectedTabIndex === 1) $scope.fetchInsights();
     };
 
     $scope.filterByLead = function (user) {
@@ -69,6 +58,19 @@ angular.module('Controllers')
       $scope.filteredActivities = {};
     };
 
+    $scope.insights = {};
+    $scope.fetchInsights = function (facetName, facets) {
+      $scope.data.subLoading = true;
+      BasicAPIServiceV1.popularPages(facetName, facets)
+        .then(function (result) {
+          $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
+          $scope.insights.facets = result.data.facets;
+        })
+        .finally(function () {
+          $scope.data.subLoading = false;
+        });
+    };
+
     function _filterActivities(activities) {
       return _.uniq(activities, function (activity) {
           return activity.user.name + activity.page.url;
@@ -83,6 +85,17 @@ angular.module('Controllers')
       .finally(function () {
         $scope.data.mainLoading = false;
       });
+    }
+
+    function _loadInsights() {
+      BasicAPIServiceV1.popularPages()
+        .then(function (result) {
+          $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
+          $scope.insights.facets = result.data.facets;
+        })
+        .finally(function () {
+          $scope.data.subLoading = false;
+        });
     }
 
     _loadRecentActivities();
