@@ -59,11 +59,28 @@ angular.module('Controllers')
         });
     };
 
-
+    $scope.breadCrumbMenus = [];
 
     $scope.insights = {};
+
+    $scope.selectBreadCrumb = function (menu) {
+      var index = _.indexOf($scope.breadCrumbMenus, _.find($scope.breadCrumbMenus, {facetName: menu.facetName}));
+      $scope.breadCrumbMenus.splice(index + 1, $scope.breadCrumbMenus.length - (index + 1));
+      $scope.fetchInsights(menu.facetName, menu.facets);
+
+    };
+
     $scope.fetchInsights = function (facetName, facets) {
-      $scope.data.sidePaneLoading = true;
+      // Push item to breadcrumb menu list, make sure no duplication of facetNames
+      var index = _.indexOf($scope.breadCrumbMenus, _.find($scope.breadCrumbMenus, {facetName: facetName}));
+      $scope.breadCrumbMenus.splice(index, 1);
+
+      $scope.breadCrumbMenus.push({
+        facetName: facetName,
+        facets: facets
+      });
+
+      $scope.data.mainPanelLoading = true;
       $scope.closeSidePane();
       BasicAPIServiceV1.popularPages(facetName, facets)
         .then(function (result) {
@@ -75,7 +92,7 @@ angular.module('Controllers')
           };
         })
         .finally(function () {
-          $scope.data.sidePaneLoading = false;
+          $scope.data.mainPanelLoading = false;
         });
     };
 

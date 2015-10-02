@@ -1,11 +1,10 @@
-<div class="facets-pane translucent-background">
-  <p ng-if="data.sidePaneLoading">Loading facets...</p>
-  <div class="row custom-row shadow translucent-background side-pane">
+<div class="facets-pane">
+  <div class="row custom-row shadow side-pane">
     <div class="twelve columns content">
       <div ng-repeat="(facetName, facets) in insights.facets">
         <h5 class="nc-grey">{{facetName}}</h5>
         <div class="row" ng-repeat="facetItem in facets">
-          <p class="facet-item" ng-click="fetchInsights(facetName, facetItem.facet)"> {{facetItem.facet}} ({{facetItem.count}})</p>
+          <p class="facet-item" ng-click="fetchInsights(facetName, facetItem.facet)"> {{facetItem.facet|uppercase}} ({{facetItem.count}})</p>
         </div>
       </div>
     </div>
@@ -17,14 +16,25 @@
     <h4 ng-if="!data.mainPanelLoading && popularPages.pages.length === 0">
       Something went wrong, and we failed to create what you were looking for!
     </h4>
-    <div class="row custom-row shadow translucent-background" ng-if="popularPages.pages.length > 0">
+
+    <div class="row custom-row pos-relative shadow translucent-background" ng-if="popularPages.pages.length > 0">
       <div class="twelve columns">
-        <div class="row" ng-repeat="page in popularPages.pages">
+        <div class="row popular-page-item">
+          <ul class="breadcrumb-menu">
+            <li class="menu-item" ng-click="selectBreadCrumb(menu)" ng-repeat="menu in breadCrumbMenus">
+              <p class="category">{{menu.facets}}</p>
+              <p class="sub-category">{{menu.facetName}}</p>
+              <i class="fa fa-angle-right"></i>
+            </li>
+          </ul>
+        </div>
+        <div class="row popular-page-item" ng-repeat="page in popularPages.pages">
           <div class="name-wrapper">
-            <p class="article">
-              <img ng-if="page.image" ng-src="{{page.image}}" alt="" class="article-image" />
-              <span>{{page.title || 'Title not available'}}</span>
-              <span class="count">{{page.count}}</span>
+            <span class="count"><strong>Activity Count:</strong> {{page.count}}</span>
+
+            <p class="article" ng-click="filterByUrl(page)">
+              <!--<img ng-if="page.image" ng-src="{{page.image}}" alt="" class="article-image" />-->
+              <span>{{page.title || 'Title not available'}} <i class="fa fa-arrow-circle-right"></i></span>
             </p>
           </div>
         </div>
@@ -34,26 +44,31 @@
 
   <div class="five columns">
     <p ng-if="data.sidePaneLoading">Loading...</p>
+
     <div class="row custom-row shadow translucent-background side-pane" ng-if="filteredActivities.list.length > 0">
       <div class="twelve columns content">
         <span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span>
         <h6 ng-bind-html="filteredActivities.filterHeader | trustText"></h6>
+
         <div class="row" ng-repeat="filteredActivity in filteredActivities.list">
           <div class="name-wrapper" ng-if="filteredActivities.filteredByLead">
             <p class="article">
-              <img ng-if="filteredActivity.page.image" ng-src="{{filteredActivity.page.image}}" alt="" class="article-image" />
+              <img ng-if="filteredActivity.page.image" ng-src="{{filteredActivity.page.image}}" alt=""
+                   class="article-image"/>
               <span>{{filteredActivity.page.title || 'Title not available'}}</span>
             </p>
           </div>
           <div ng-if="!filteredActivities.filteredByLead">
             <div class="image-wrapper u-pull-left">
-              <img ng-if="filteredActivity.user.user_photo" ng-src="{{filteredActivity.user.user_photo}}" alt="" class="avatar"/>
+              <img ng-if="filteredActivity.user.user_photo" ng-src="{{filteredActivity.user.user_photo}}" alt=""
+                   class="avatar"/>
             </div>
             <div class="name-wrapper u-pull-left">
               <div>
                 <h5 class="name nc-red">{{filteredActivity.user.name}}</h5>
               </div>
-              <p class="designation nc-dark-grey"><span ng-if="filteredActivity.user.title">{{filteredActivity.user.title}},</span> {{filteredActivity.user.company}}</p>
+              <p class="designation nc-dark-grey"><span ng-if="filteredActivity.user.title">{{filteredActivity.user.title}},</span>
+                {{filteredActivity.user.company}}</p>
             </div>
           </div>
 
