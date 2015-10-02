@@ -8,11 +8,11 @@
             <img ng-if="activity.user.user_photo" ng-src="{{activity.user.user_photo}}" alt="" class="avatar"/>
           </div>
           <div class="name-wrapper u-pull-left">
-            <div ng-click="filterByLead(activity.user.lead_id)">
+            <div ng-click="filterByLead(activity.user)">
               <h5 class="name nc-red">{{activity.user.name}} <i class="fa fa-arrow-circle-right"></i></h5>
             </div>
             <p class="designation"><span ng-if="activity.user.title">{{activity.user.title}},</span> {{activity.user.company}}</p>
-            <p class="article" ng-click="filterByUrl(activity.page.url)">
+            <p class="article" ng-click="filterByUrl(activity.page)">
               <img ng-if="activity.page.image" ng-src="{{activity.page.image}}" alt="" class="article-image" />
               <span>{{activity.page.title || 'Title not available'}} <i class="fa fa-arrow-circle-right"></i></span>
             </p>
@@ -26,7 +26,7 @@
     <div class="row custom-row shadow translucent-background" ng-if="filteredActivities.list.length > 0">
       <div class="twelve columns">
         <p class="actions"><span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span></p>
-        <h4>{{filteredActivities.filterHeader}}</h4>
+        <h6 ng-bind-html="filteredActivities.filterHeader | trustText"></h6>
         <div class="row" ng-repeat="filteredActivity in filteredActivities.list">
           <div class="name-wrapper" ng-if="filteredActivities.filteredByLead">
             <p class="article">

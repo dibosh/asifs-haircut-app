@@ -26,26 +26,26 @@ angular.module('Controllers')
 
     $scope.filteredActivities = {};
 
-    $scope.filterByLead = function (leadId) {
-      $scope.filteredActivities.filterHeader = 'This lead has read';
+    $scope.filterByLead = function (user) {
+      $scope.filteredActivities.filterHeader = '<strong>' + user.name + '</strong> read following articles';
       $scope.filteredActivities.filteredByLead = true;
       $scope.data.subLoading = true;
-      BasicAPIServiceV1.recentActivitiesFilterByLeadId(leadId)
+      BasicAPIServiceV1.recentActivitiesFilterByLeadId(user.lead_id)
         .then(function (result) {
-          $scope.filteredActivities.list = result.data.activities;
+          $scope.filteredActivities.list = _.uniq(result.data.activities, 'user.name');
         })
         .finally(function () {
           $scope.data.subLoading = false;
         });
     };
 
-    $scope.filterByUrl = function (url) {
-      $scope.filteredActivities.filterHeader = 'This article was read by';
+    $scope.filterByUrl = function (page) {
+      $scope.filteredActivities.filterHeader = '<strong>' + page.title + '</strong> was read by following leads';
       $scope.filteredActivities.filteredByLead = false;
       $scope.data.subLoading = true;
-      BasicAPIServiceV1.recentActivitiesFilterByUrl(url)
+      BasicAPIServiceV1.recentActivitiesFilterByUrl(page.url)
         .then(function (result) {
-          $scope.filteredActivities.list = result.data.activities;
+          $scope.filteredActivities.list = _.uniq(result.data.activities, 'user.name');
         })
         .finally(function () {
           $scope.data.subLoading = false;
@@ -54,7 +54,7 @@ angular.module('Controllers')
 
     BasicAPIServiceV1.recentActivities()
       .then(function (result) {
-        $scope.recentActivities = result.data.activities;
+        $scope.recentActivities = _.uniq(result.data.activities, 'user.name');
       })
       .finally(function () {
         $scope.data.mainLoading = false;
