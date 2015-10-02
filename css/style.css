@@ -275,3 +275,50 @@ body {
     font-size: 10px;
     color: #b2b2b3
 }
+
+.tags{
+    display: block;
+    padding: 5px;
+    background: rgba(255,255,255,0.3);
+}
+
+.tag{
+    display: inline-block;
+    cursor: pointer;
+    background: rgba(0,0,0,0.8);
+    padding: 5px 20px 5px 10px;
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.1s ease-in-out;
+    margin-right: 10px;
+}
+
+.tag:hover {
+    padding-right: 30px;
+}
+
+.tag:hover .btn-delete {
+    display: block;
+}
+
+.tag .category {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: white;
+}
+
+.tag .sub-category {
+    text-transform: capitalize;
+    font-size: 8px;
+    color: #b2b2b3
+}
+
+.btn-delete{
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8.5%;
+    font-size: 16px;
+    color: red;
+}

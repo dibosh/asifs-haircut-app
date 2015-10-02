@@ -61,11 +61,15 @@ angular.module('Controllers')
 
     $scope.currentFacets = {};
 
+    $scope.currentFacetsLength = 0;
+
     $scope.insights = {};
 
     $scope.fetchInsights = function (facetName, facets) {
       if (facetName) {
         $scope.currentFacets[facetName] = facets;
+        $scope.currentFacetsLength = Object.keys($scope.currentFacets).length;
+        //$scope.$apply();// Otherwise changes are not reflected
       }
 
       $scope.data.mainPanelLoading = true;
