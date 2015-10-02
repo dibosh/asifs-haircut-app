@@ -65,11 +65,11 @@ body {
 .wrapper {
     height: 100vh;
     width: 100%;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .wrapper .container {
-    padding-top: 100px
+    padding-top: 60px
 }
 
 .custom-row {
@@ -82,6 +82,11 @@ body {
     width: 32px;
     height: 32px;
     border-radius: 50%;
+}
+
+.card-list {
+    height: 80vh;
+    overflow-y: auto;
 }
 
 .timestamp {
