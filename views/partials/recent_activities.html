@@ -21,5 +21,34 @@
       </div>
     </div>
   </div>
-  <div class="five columns" ng-include="'views/partials/sidepane.html'"></div>
+  <div class="five columns">
+    <p ng-if="data.sidePaneLoading">Loading...</p>
+    <div class="row custom-row shadow translucent-background side-pane" ng-if="filteredActivities.list.length > 0">
+      <div class="twelve columns content">
+        <span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span>
+        <h6 ng-bind-html="filteredActivities.filterHeader | trustText"></h6>
+        <div class="row" ng-repeat="filteredActivity in filteredActivities.list">
+          <div class="timestamp nc-grey">{{filteredActivity.timestamp}}</div>
+          <div class="name-wrapper" ng-if="filteredActivities.filteredByLead">
+            <p class="article" ng-click="filterByUrl(filteredActivity.page)">
+              <img ng-if="filteredActivity.page.image" ng-src="{{filteredActivity.page.image}}" alt="" class="article-image" />
+              <span>{{filteredActivity.page.title || 'Title not available'}} <i class="fa fa-arrow-circle-right"></i></span>
+            </p>
+          </div>
+          <div ng-if="!filteredActivities.filteredByLead">
+            <div class="image-wrapper u-pull-left">
+              <img ng-if="filteredActivity.user.user_photo" ng-src="{{filteredActivity.user.user_photo}}" alt="" class="avatar"/>
+            </div>
+            <div class="name-wrapper u-pull-left" ng-click="filterByLead(filteredActivity.user)">
+              <div>
+                <h5 class="name nc-red">{{filteredActivity.user.name}} <i class="fa fa-arrow-circle-right"></i></h5>
+              </div>
+              <p class="designation nc-dark-grey"><span ng-if="filteredActivity.user.title">{{filteredActivity.user.title}},</span> {{filteredActivity.user.company}}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
