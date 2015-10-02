@@ -8,7 +8,7 @@
       <div class="twelve columns">
         <div class="row" ng-repeat="page in popularPages.pages">
           <div class="name-wrapper">
-            <p>
+            <p class="article">
               <img ng-if="page.image" ng-src="{{page.image}}" alt="" class="article-image" />
               <span>{{page.title || 'Title not available'}}</span>
               <span class="count">{{page.count}}</span>

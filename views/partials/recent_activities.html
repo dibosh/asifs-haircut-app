@@ -23,9 +23,9 @@
   </div>
   <div class="five columns">
     <p ng-if="data.subLoading">Loading...</p>
-    <div class="row custom-row shadow translucent-background" ng-if="filteredActivities.list.length > 0">
-      <div class="twelve columns">
-        <p class="actions"><span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span></p>
+    <div class="row custom-row shadow translucent-background side-pane" ng-if="filteredActivities.list.length > 0">
+      <div class="twelve columns content">
+        <span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span>
         <h6 ng-bind-html="filteredActivities.filterHeader | trustText"></h6>
         <div class="row" ng-repeat="filteredActivity in filteredActivities.list">
           <div class="name-wrapper" ng-if="filteredActivities.filteredByLead">

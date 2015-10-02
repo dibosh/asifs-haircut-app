@@ -93,6 +93,18 @@ body {
     overflow-y: auto;
 }
 
+.side-pane {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.side-pane .content {
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+}
+
 .timestamp {
     text-align: right;
 }
@@ -178,14 +190,16 @@ body {
 .action-button {
     font-size: 2.0rem;
     cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px
 }
 
-.count {
+.article .count {
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: white !important;
-    padding: 10px;
-    color: #555
+    background: #BE90D4;
+    padding: 2px 5px;
+    font-weight: 700;
+    font-size: 18px;
+    color: white
 }
