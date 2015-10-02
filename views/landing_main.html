@@ -8,21 +8,21 @@
             <div class="timestamp nc-grey">{{activity.timestamp}}</div>
             <div class="info-wrapper u-cf">
               <div class="image-wrapper u-pull-left">
-                <img ng-src="{{activity.user.user_photo}}" alt="" class="avatar"/>
+                <img ng-if="activity.user.user_photo" ng-src="{{activity.user.user_photo}}" alt="" class="avatar"/>
               </div>
               <div class="name-wrapper u-pull-left">
                 <h5 class="name nc-red">{{activity.user.name}}</h5>
                 <p class="designation"><span ng-if="activity.user.title">{{activity.user.title}},</span> {{activity.user.company}}</p>
                 <a ng-href="{{activity.page.url}}" class="article">
-                  <img ng-src="{{activity.page.url}}" alt="" class="article-image" />
-                  {{activity.page.title}}
+                  <img ng-if="activity.page.image" ng-src="{{activity.page.image.url}}" alt="" class="article-image" />
+                  {{activity.page.title || 'Title not available'}}
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="four columns full-height">
+      <div class="four columns full-height" ng-if="false">
         <div class="row half-height">
           <div class="twelve columns">
             <h1>Top Grossing Article</h1>
