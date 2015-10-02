@@ -50,7 +50,7 @@
 
   <div class="five columns">
     <p ng-if="data.sidePaneLoading">Loading...</p>
-    <div class="row custom-row shadow translucent-background side-pane" ng-if="filteredActivities.list.length > 0">
+    <div class="row custom-row shadow translucent-background side-pane" ng-class="{'animate-faded-right-in' : filteredActivities.list.length > 0}" ng-if="filteredActivities.list.length > 0">
       <div class="twelve columns content">
         <span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span>
         <h6 ng-bind-html="filteredActivities.filterHeader | trustText"></h6>

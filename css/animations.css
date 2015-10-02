@@ -22,12 +22,23 @@
 
 @keyframes fadedSlideInRight {
     0% {
-        transform:translateX(10%);
+        transform:translateX(5%);
         opacity: 0;
     }
     100% {
         transform: translateX(0%);
         opacity: 1;
+    }
+}
+
+@keyframes fadedSlideOutRight {
+    0% {
+        transform:translateX(0%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(10%);
+        opacity: 0;
     }
 }
 

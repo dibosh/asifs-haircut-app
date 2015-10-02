@@ -47,7 +47,7 @@ angular.module('Controllers')
     };
 
     $scope.filterByUrl = function (page) {
-      $scope.filteredActivities.filterHeader = '<strong>' + page.title + '</strong> was read by following leads';
+      $scope.filteredActivities.filterHeader = '<img ng-if="' + page.image + '" ng-src="'+ page.image +'" alt="" class="big-article-image"/><strong>' + page.title + '</strong> was read by following leads';
       $scope.filteredActivities.filteredByLead = false;
       $scope.data.sidePaneLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByUrl(page.url)
