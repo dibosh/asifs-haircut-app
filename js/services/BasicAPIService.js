@@ -19,6 +19,14 @@ angular.module('Services')
           url = url + '?' + facetType.toLowerCase() + '=' + facet;
         }
         return $http.get(url);
+      },
+
+      leads: function (facetType, facet) {
+        var url = 'https://fast-brushlands-4500.herokuapp.com/leads';
+        if (facetType && facet) {
+          url = url + '?' + facetType.toLowerCase() + '=' + facet;
+        }
+        return $http.get(url);
       }
     };
   }]);

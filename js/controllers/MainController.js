@@ -94,6 +94,11 @@ angular.module('Controllers')
         .finally(function () {
           $scope.data.mainPanelLoading = false;
         });
+
+      BasicAPIServiceV1.leads(facetName, facets)
+        .then(function (result) {
+          $scope.insights.users = result.data.leads;
+        });
     };
 
     function _filterActivities(activities) {

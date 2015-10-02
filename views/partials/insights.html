@@ -76,4 +76,19 @@
       </div>
     </div>
   </div>
+
+  <div class="row custom-row shadow translucent-background side-pane" ng-if="insights.users.length > 0">
+    <div class="twelve columns content">
+      <div class="row" ng-repeat="user in insights.users">
+        <div class="name-wrapper" ng-if="user.name !== 'N/A'">
+          <div> {{user.name}} </div>
+          <div> interacted {{user.count}} times </div>
+          <div ng-if="user.industry !== 'other' && user.industry !== 'N/A' && user.industry"> works in {{user.industry}} </div>
+          <div ng-if="user.function !== 'other' && user.function !== 'N/A' && user.function"> works as a {{user.function}} </div>
+          <div ng-if="user.seniority !== 'other' && user.seniority !== 'N/A' && user.seniority"> works is a {{user.seniority}} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
