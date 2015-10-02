@@ -2,9 +2,11 @@
   <div class="row custom-row shadow side-pane">
     <div class="twelve columns content">
       <div ng-repeat="(facetName, facets) in insights.facets">
-        <h5 class="nc-grey">{{facetName}}</h5>
-        <div class="row" ng-repeat="facetItem in facets">
-          <p class="facet-item" ng-click="fetchInsights(facetName, facetItem.facet)"> {{facetItem.facet|uppercase}} ({{facetItem.count}})</p>
+        <div ng-if="!currentFacets[facetName]">
+          <h5 class="nc-grey">{{facetName}}</h5>
+          <div class="row" ng-repeat="facetItem in facets">
+            <p class="facet-item" ng-click="fetchInsights(facetName, facetItem.facet)"> {{facetItem.facet|uppercase}} ({{facetItem.count}})</p>
+          </div>
         </div>
       </div>
     </div>
