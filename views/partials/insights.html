@@ -19,14 +19,14 @@
 
     <div class="row custom-row pos-relative shadow translucent-background" ng-if="popularPages.pages.length > 0">
       <div class="twelve columns">
-        <h5 class="nc-grey">Content Overview</h5>
         <div class="row popular-page-item">
           <ul class="breadcrumb-menu">
             <li class="menu-item" ng-repeat="(facetType, value) in currentFacets">
               <p class="category">{{facetType}}</p>
-              <p class="sub-category">{{value}}</p>
+              <p class="sub-category">{{value}} <span ng-click="removeFacet(facetType)"> remove </span></p>
             </li>
           </ul>
+          <h5 class="nc-grey">Content Overview</h5>
         </div>
         <div class="row popular-page-item" ng-repeat="page in popularPages.pages">
           <div class="name-wrapper">

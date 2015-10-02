@@ -89,6 +89,12 @@ angular.module('Controllers')
         });
     };
 
+
+    $scope.removeFacet = function (facetName) {
+      delete $scope.currentFacets[facetName];
+      $scope.fetchInsights();
+    };
+
     function _filterActivities(activities) {
       return _.uniq(activities, function (activity) {
           return activity.user.name + activity.page.url;
