@@ -45,7 +45,9 @@ angular.module('Controllers')
       $scope.data.subLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByLeadId(user.lead_id)
         .then(function (result) {
-          $scope.filteredActivities.list = _.uniq(result.data.activities, 'user.name');
+          $scope.filteredActivities.list = _.uniq(result.data.activities, function (activity) {
+            return activity.user.name + activity.page.url;
+          });
         })
         .finally(function () {
           $scope.data.subLoading = false;
