@@ -104,6 +104,22 @@ body {
     margin-top: 5px;
 }
 
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tabs h2{
+    opacity: 0.3;
+    display: inline-block;
+    margin-right: 20px;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.tabs .active {
+    opacity: 1;
+}
+
 .article span {
     color: #5891de;
     padding: 5px 10px 5px 0

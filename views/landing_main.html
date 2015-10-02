@@ -1,42 +1,10 @@
 <div class="wrapper backgroundNC">
   <p class="loading" ng-if="data.loading">Loading...</p>
   <div class="container full-height">
-    <div class="row full-height">
-      <div class="eight columns">
-        <div class="row custom-row shadow translucent-background" ng-repeat="activity in recentActivities">
-          <div class="twelve columns">
-            <div class="timestamp nc-grey">{{activity.timestamp}}</div>
-            <div class="info-wrapper u-cf">
-              <div class="image-wrapper u-pull-left">
-                <img ng-if="activity.user.user_photo" ng-src="{{activity.user.user_photo}}" alt="" class="avatar"/>
-              </div>
-              <div class="name-wrapper u-pull-left">
-                <div>
-                  <h5 class="name nc-red">{{activity.user.name}} <i class="fa fa-arrow-circle-right"></i></h5>
-                </div>
-                <p class="designation"><span ng-if="activity.user.title">{{activity.user.title}},</span> {{activity.user.company}}</p>
-                <p class="article">
-                  <img ng-if="activity.page.image" ng-src="{{activity.page.image.url}}" alt="" class="article-image" />
-                  <span>{{activity.page.title || 'Title not available'}} <i class="fa fa-arrow-circle-right"></i></span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="four columns full-height" ng-if="false">
-        <div class="row half-height">
-          <div class="twelve columns">
-            <h1>Top Grossing Article</h1>
-          </div>
-        </div>
-        <div class="row half-height">
-          <div class="twelve columns">
-            <h1>Top Designation/Something</h1>
-          </div>
-        </div>
-      </div>
+    <div class="tabs">
+      <h2 ng-class="{'active': tab.isActive}" ng-click="selectTab($index)" ng-repeat="tab in tabs">{{tab.title}}</h2>
     </div>
+    <div ng-include="tabs[selectedTabIndex].template"></div>
   </div>
 </div>
 </div>
