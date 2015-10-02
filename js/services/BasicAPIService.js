@@ -1,5 +1,13 @@
 angular.module('Services')
 .factory('BasicAPIServiceV1', ['$http', function ($http) {
+    function EncodeQueryData(data) {
+       var ret = [];
+       data = data || {};
+       for (var d in data)
+          ret.push(d.toLowerCase() + "=" + encodeURIComponent(data[d]));
+       return ret.join("&");
+    }
+
     return {
       recentActivities: function () {
         return $http.get('https://fast-brushlands-4500.herokuapp.com/recent-activities');
@@ -13,20 +21,14 @@ angular.module('Services')
         return $http.get('https://fast-brushlands-4500.herokuapp.com/recent-activities?page_url=' + url);
       },
 
-      popularPages: function (facetType, facet) {
+      popularPages: function (facets) {
         var url = 'https://fast-brushlands-4500.herokuapp.com/popular-pages';
-        if (facetType && facet) {
-          url = url + '?' + facetType.toLowerCase() + '=' + facet;
-        }
-        return $http.get(url);
+        return $http.get(url + '?' + EncodeQueryData(facets));
       },
 
-      leads: function (facetType, facet) {
+      leads: function (facets) {
         var url = 'https://fast-brushlands-4500.herokuapp.com/leads';
-        if (facetType && facet) {
-          url = url + '?' + facetType.toLowerCase() + '=' + facet;
-        }
-        return $http.get(url);
+        return $http.get(url + '?' + EncodeQueryData(facets));
       }
     };
   }]);

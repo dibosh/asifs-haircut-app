@@ -22,10 +22,9 @@
         <h5 class="nc-grey">Content Overview</h5>
         <div class="row popular-page-item">
           <ul class="breadcrumb-menu">
-            <li class="menu-item" ng-click="selectBreadCrumb(menu)" ng-repeat="menu in breadCrumbMenus">
-              <p class="category">{{menu.facets}}</p>
-              <p class="sub-category">{{menu.facetName}}</p>
-              <i class="fa fa-angle-right"></i>
+            <li class="menu-item" ng-repeat="(facetType, value) in currentFacets">
+              <p class="category">{{facetType}}</p>
+              <p class="sub-category">{{value}}</p>
             </li>
           </ul>
         </div>

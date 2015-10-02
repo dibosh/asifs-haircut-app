@@ -59,30 +59,18 @@ angular.module('Controllers')
         });
     };
 
-    $scope.breadCrumbMenus = [];
+    $scope.currentFacets = {};
 
     $scope.insights = {};
 
-    $scope.selectBreadCrumb = function (menu) {
-      var index = _.indexOf($scope.breadCrumbMenus, _.find($scope.breadCrumbMenus, {facetName: menu.facetName}));
-      $scope.breadCrumbMenus.splice(index + 1, $scope.breadCrumbMenus.length - (index + 1));
-      $scope.fetchInsights(menu.facetName, menu.facets);
-
-    };
-
     $scope.fetchInsights = function (facetName, facets) {
-      // Push item to breadcrumb menu list, make sure no duplication of facetNames
-      var index = _.indexOf($scope.breadCrumbMenus, _.find($scope.breadCrumbMenus, {facetName: facetName}));
-      $scope.breadCrumbMenus.splice(index, 1);
-
-      $scope.breadCrumbMenus.push({
-        facetName: facetName,
-        facets: facets
-      });
+      if (facetName) {
+        $scope.currentFacets[facetName] = facets;
+      }
 
       $scope.data.mainPanelLoading = true;
       $scope.closeSidePane();
-      BasicAPIServiceV1.popularPages(facetName, facets)
+      BasicAPIServiceV1.popularPages($scope.currentFacets)
         .then(function (result) {
           $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
           $scope.insights.facets = {
@@ -95,7 +83,7 @@ angular.module('Controllers')
           $scope.data.mainPanelLoading = false;
         });
 
-      BasicAPIServiceV1.leads(facetName, facets)
+      BasicAPIServiceV1.leads($scope.currentFacets)
         .then(function (result) {
           $scope.insights.users = result.data.leads;
         });
