@@ -11,12 +11,14 @@
                 <img ng-if="activity.user.user_photo" ng-src="{{activity.user.user_photo}}" alt="" class="avatar"/>
               </div>
               <div class="name-wrapper u-pull-left">
-                <h5 class="name nc-red">{{activity.user.name}}</h5>
+                <div>
+                  <h5 class="name nc-red">{{activity.user.name}} <i class="fa fa-arrow-circle-right"></i></h5>
+                </div>
                 <p class="designation"><span ng-if="activity.user.title">{{activity.user.title}},</span> {{activity.user.company}}</p>
-                <a ng-href="{{activity.page.url}}" class="article">
+                <p class="article">
                   <img ng-if="activity.page.image" ng-src="{{activity.page.image.url}}" alt="" class="article-image" />
-                  {{activity.page.title || 'Title not available'}}
-                </a>
+                  <span>{{activity.page.title || 'Title not available'}} <i class="fa fa-arrow-circle-right"></i></span>
+                </p>
               </div>
             </div>
           </div>

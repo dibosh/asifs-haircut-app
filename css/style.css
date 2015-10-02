@@ -28,7 +28,7 @@ body {
 }
 
 .translucent-background {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
 }
 
 .backgroundNC {
@@ -78,18 +78,6 @@ body {
     padding: 20px;
 }
 
-.info-wrapper {
-    width: 100%;
-}
-
-.image-wrapper {
-    width: 15%;
-}
-
-.name-wrapper {
-    width: 78%;
-}
-
 .avatar {
     display: inline-block;
     width: 32px;
@@ -109,8 +97,41 @@ body {
     margin-right: 10px
 }
 
-.article{
-    line-height: 1.69
+.article {
+    line-height: 1.69;
+    cursor: pointer;
+    padding: 5px 0;
+    margin-top: 5px;
+}
+
+.article span {
+    color: #5891de;
+    padding: 5px 10px 5px 0
+}
+
+.article:hover span, .name:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+.article:hover .fa-arrow-circle-right {
+    opacity: 1;
+    color: #5891de;
+}
+
+.name {
+    cursor: pointer;
+    display: inline-block;
+    padding-right: 10px
+}
+
+.name:hover .fa-arrow-circle-right {
+    opacity: 1;
+    color: #ef2b35
+}
+
+.fa-arrow-circle-right {
+    opacity: 0;
+    transition: all 0.1s ease-in;
 }
 
 .loading {
