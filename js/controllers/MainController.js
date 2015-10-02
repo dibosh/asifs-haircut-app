@@ -47,7 +47,7 @@ angular.module('Controllers')
     };
 
     $scope.filterByUrl = function (page) {
-      $scope.filteredActivities.filterHeader = '<img ng-if="' + page.image + '" ng-src="'+ page.image +'" alt="" class="big-article-image"/><strong>' + page.title + '</strong> was read by following leads';
+      $scope.filteredActivities.filterHeader = '<strong>' + page.title + '</strong> was read by following leads';
       $scope.filteredActivities.filteredByLead = false;
       $scope.data.sidePaneLoading = true;
       BasicAPIServiceV1.recentActivitiesFilterByUrl(page.url)
@@ -78,9 +78,15 @@ angular.module('Controllers')
         .then(function (result) {
           $scope.popularPages.pages = _.uniq(result.data.pages, 'url');
           $scope.insights.facets = {
-            'Industry': _((_.sortBy(_.map(result.data.facets.Industry, function (count, name) { return {facet: name, count: count }; }), 'count'))).reverse().value(),
-            'Function': _((_.sortBy(_.map(result.data.facets['Function'], function (count, name) { return {facet: name, count: count }; }), 'count'))).reverse().value(),
-            'Seniority': _((_.sortBy(_.map(result.data.facets.Seniority, function (count, name) { return {facet: name, count: count }; }), 'count'))).reverse().value()
+            'Industry': _((_.sortBy(_.map(result.data.facets.Industry, function (count, name) {
+              return {facet: name, count: count};
+            }), 'count'))).reverse().value(),
+            'Function': _((_.sortBy(_.map(result.data.facets['Function'], function (count, name) {
+              return {facet: name, count: count};
+            }), 'count'))).reverse().value(),
+            'Seniority': _((_.sortBy(_.map(result.data.facets.Seniority, function (count, name) {
+              return {facet: name, count: count};
+            }), 'count'))).reverse().value()
           };
         })
         .finally(function () {
@@ -102,18 +108,18 @@ angular.module('Controllers')
 
     function _filterActivities(activities) {
       return _.uniq(activities, function (activity) {
-          return activity.user.name + activity.page.url;
+        return activity.user.name + activity.page.url;
       });
     }
 
     function _loadRecentActivities() {
       BasicAPIServiceV1.recentActivities()
-      .then(function (result) {
-        $scope.recentActivities = _filterActivities(result.data.activities);
-      })
-      .finally(function () {
-        $scope.data.mainLoading = false;
-      });
+        .then(function (result) {
+          $scope.recentActivities = _filterActivities(result.data.activities);
+        })
+        .finally(function () {
+          $scope.data.mainLoading = false;
+        });
     }
 
     _loadRecentActivities();

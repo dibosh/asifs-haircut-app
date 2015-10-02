@@ -1,6 +1,6 @@
 <div class="row full-height">
   <div class="seven columns card-list">
-    <div class="row custom-row shadow translucent-background" ng-repeat="activity in recentActivities">
+    <div class="row custom-row shadow translucent-background animate-faded-bottom-in" ng-repeat="activity in recentActivities">
       <div class="twelve columns">
         <div class="timestamp nc-grey">{{activity.timestamp}}</div>
         <div class="info-wrapper u-cf">
@@ -28,8 +28,8 @@
 
     <div class="row custom-row shadow translucent-background side-pane" ng-if="filteredActivities.list.length > 0"
          ng-class="{
-    'animate-faded-right-in' : sidePaneClosing,
-    'animate-faded-right-out' : sidePaneClosing,
+    'animate-faded-right-in' : filteredActivities.list.length > 0,
+    'animate-faded-right-out' : !(filteredActivities.list.length > 0),
     }">
       <div class="twelve columns content">
         <span class="action-button" ng-click="closeSidePane()"><i class="fa fa-times-circle"></i></span>

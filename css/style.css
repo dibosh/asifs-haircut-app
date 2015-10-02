@@ -104,11 +104,19 @@ body {
 }
 
 .animate-faded-right-in {
-    animation: fadedSlideInRight 0.5s both ease-in;
+    animation: fadedSlideInRight 0.3s both ease-in;
 }
 
 .animate-faded-right-out {
     animation: fadedSlideOutRight 0.5s both ease-in;
+}
+
+.animate-faded-scale-in {
+    animation: fadedScaleIn 0.2s both ease-in;
+}
+
+.animate-faded-bottom-in {
+    animation: fadedSlideInBottom 0.5s both ease-in;
 }
 
 .big-article-image {
